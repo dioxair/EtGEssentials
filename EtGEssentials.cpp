@@ -13,4 +13,7 @@ int main()
     Address shells_base_addr = memory.getModule("mono.dll");
     Address shells_addr = memory.getAddress(shells_base_addr + 0x00264A68, { 0xC0, 0xE90, 0xA8, 0x198, 0x1C });
     // shells are the currency used in EtG runs if you didn't know
+
+    float current_health = memory.read<float>(health_addr);
+    float current_shells = memory.read<int>(shells_addr);
 }
