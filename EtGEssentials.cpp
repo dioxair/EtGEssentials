@@ -1,4 +1,5 @@
 #include <iostream>
+#include "CasualLibrary.hpp"
 
 int main()
 {
