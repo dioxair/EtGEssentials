@@ -1,6 +1,8 @@
 #include <iostream>
 #include "CasualLibrary.hpp"
 
+using namespace std;
+
 int main()
 {
     Memory::External memory = Memory::External("EtG.exe", true);
