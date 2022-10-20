@@ -1,12 +1,44 @@
+#include <cstdio>
+#include <windows.h>
+#include <tlhelp32.h>
+#include <tchar.h>
 #include <iostream>
 #include "CasualLibrary.hpp"
 
 using namespace std;
 
+bool is_process_running(const wchar_t* processName)
+{
+    bool exists = false;
+    PROCESSENTRY32 entry;
+    entry.dwSize = sizeof(PROCESSENTRY32);
+
+    const HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+
+    if (Process32First(snapshot, &entry))
+        while (Process32Next(snapshot, &entry))
+            if (!_wcsicmp(entry.szExeFile, processName))
+                exists = true;
+
+    CloseHandle(snapshot);
+    return exists;
+}
+
+int WINAPI _tWinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPTSTR lpszCmdLine, int nCmdShow);
+
 int main()
 {
     int choice;
     bool loop_running = true;
+
+    const wstring name(L"EtG.exe");
+    const wchar_t* etg_process_name = name.c_str();
+
+    if (is_process_running(etg_process_name) == false)
+    {
+        MessageBox(0, _T("Enter the Gungeon isn't open! Please open Enter the Gungeon and then restart the program!"), _T("Error"), 0);
+        return 0;
+    }
 
     Memory::External memory = Memory::External("EtG.exe", true);
 
