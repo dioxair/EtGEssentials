@@ -29,7 +29,6 @@ int WINAPI _tWinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPTSTR lpszCm
 int main()
 {
     int choice;
-    bool loop_running = true;
 
     const wstring name(L"EtG.exe");
     const wchar_t* etg_process_name = name.c_str();
@@ -52,7 +51,7 @@ int main()
     float current_health = memory.read<float>(health_addr);
     float current_shells = memory.read<int>(shells_addr);
 
-    while (loop_running != false) {
+    while (true) {
         cout << "EtG Essentials\n";
         cout << " 1 - Infinite Health\n";
         cout << " 2 - Infinite Shells\n";
@@ -73,13 +72,10 @@ int main()
         case 3:
             cout << "\nExiting..";
             Sleep(2000);
-            loop_running = false;
             return 0;
         default:
             cout << "Not a valid choice, choose again.";
             break;
         }
-
     }
-    return 0;
 }
