@@ -75,7 +75,6 @@ int main()
             Sleep(2000);
             loop_running = false;
             return 0;
-            break;
         default:
             cout << "Not a valid choice, choose again.";
             break;
