@@ -91,7 +91,7 @@ int main()
             Sleep(2000);
             return 0;
         default:
-            cout << "Not a valid choice, choose again.";
+            cout << "Not a valid choice, choose again.\n";
             break;
         }
     }
