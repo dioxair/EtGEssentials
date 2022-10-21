@@ -86,8 +86,8 @@ int main()
             infinite_health(memory, health_addr);
             break;
         case 2:
+            memory.write<int>(shells_addr, 100000000, true);
             cout << "\nGave Player 100 million shells!\n\n";
-            // write to shells pointer once
             break;
         case 3:
             cout << "\nExiting..";
