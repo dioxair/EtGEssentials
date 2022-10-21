@@ -69,7 +69,10 @@ int main()
     int current_shells = memory.read<int>(shells_addr);
 
     while (true) {
-        cout << "EtG Essentials\n";
+        cout << "Current health: " << current_health << endl;
+        cout << "Current shells: " << current_shells << endl;
+
+        cout << "\nEtG Essentials\n";
         cout << " 1 - Infinite Health\n";
         cout << " 2 - Infinite Shells\n";
         cout << " 3 - Exit.\n";
