@@ -24,6 +24,23 @@ bool is_process_running(const wchar_t* processName)
     return exists;
 }
 
+void infinite_health(Memory::External memory, Address health_addr)
+{
+    while (true)
+    {
+        Sleep(100);
+        memory.write<float>(health_addr, 50, true);
+        // if EtGEssentials is focused
+        if (GetConsoleWindow() == GetForegroundWindow())
+        {
+	        if (GetAsyncKeyState(VK_ESCAPE))
+	        {
+                exit(0);
+	        }
+        }
+    }
+}
+
 int WINAPI _tWinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPTSTR lpszCmdLine, int nCmdShow);
 
 int main()
@@ -49,7 +66,7 @@ int main()
     // shells are the currency used in EtG runs if you didn't know
 
     float current_health = memory.read<float>(health_addr);
-    float current_shells = memory.read<int>(shells_addr);
+    int current_shells = memory.read<int>(shells_addr);
 
     while (true) {
         cout << "EtG Essentials\n";
@@ -62,8 +79,8 @@ int main()
 
         switch (choice) {
         case 1:
-            cout << "\nGave Player infinite health!\n\n";
-            // write to health pointer in a loop
+            cout << "\nGiving Player infinite health! Press the ESCAPE key to exit EtGEssentials\n\n";
+            infinite_health(memory, health_addr);
             break;
         case 2:
             cout << "\nGave Player 100 million shells!\n\n";
