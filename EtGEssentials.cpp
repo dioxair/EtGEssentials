@@ -8,6 +8,7 @@ int main()
 {
     int choice;
 
+	#pragma region Message box
     const wstring name(L"EtG.exe");
     const wchar_t* etg_process_name = name.c_str();
 
@@ -16,9 +17,11 @@ int main()
         MessageBox(0, _T("Enter the Gungeon isn't open! Please open Enter the Gungeon and then restart the program!"), _T("Error"), 0);
         return 0;
     }
+    #pragma endregion
 
     Memory::External memory = Memory::External("EtG.exe", true);
 
+	#pragma region Address variables
     Address health_base_addr = memory.getModule("UnityPlayer.dll");
     Address health_addr = memory.getAddress(health_base_addr + 0x0146FCC8, { 0x120, 0x10, 0x30, 0x30, 0x38, 0x28, 0x118 });
 
@@ -32,6 +35,7 @@ int main()
     float current_health = memory.read<float>(health_addr);
     int current_shells = memory.read<int>(shells_addr);
     int current_blanks = memory.read<int>(blanks_addr);
+	#pragma endregion
 
     while (true) {
         cout << "Current health: " << current_health << endl;
