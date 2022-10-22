@@ -37,7 +37,10 @@ inline void infinite_health(Memory::External memory, Address health_addr)
     while (true)
     {
         Sleep(100);
-        memory.write<float>(health_addr, 50, true);
+        if (memory.read<float>(health_addr) != 50) // unsafe, will fix later (hopefully)
+        {
+            memory.write<float>(health_addr, 50, true);
+        }
         if (check_window_focus())
         {
             if (GetAsyncKeyState(VK_ESCAPE))
@@ -53,7 +56,10 @@ inline void infinite_blanks(Memory::External memory, Address blanks_addr)
     while (true)
     {
         Sleep(100);
-        memory.write<int>(blanks_addr, 10, true);
+        if (memory.read<int>(blanks_addr) != 10)
+        {
+        		memory.write<int>(blanks_addr, 10, true);
+        }
         if (check_window_focus())
         {
             if (GetAsyncKeyState(VK_ESCAPE))
