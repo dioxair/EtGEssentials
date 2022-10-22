@@ -22,16 +22,14 @@ inline bool is_process_running(const wchar_t* processName)
     return exists;
 }
 
-inline void check_window_focus()
+inline bool check_window_focus()
 {
     // if EtGEssentials is focused
     if (GetConsoleWindow() == GetForegroundWindow())
     {
-        if (GetAsyncKeyState(VK_ESCAPE))
-        {
-            exit(0);
-        }
+        return true;
     }
+    return false;
 }
 
 inline void infinite_health(Memory::External memory, Address health_addr)
@@ -40,7 +38,13 @@ inline void infinite_health(Memory::External memory, Address health_addr)
     {
         Sleep(100);
         memory.write<float>(health_addr, 50, true);
-        check_window_focus();
+        if (check_window_focus())
+        {
+            if (GetAsyncKeyState(VK_ESCAPE))
+            {
+                exit(0);
+            }
+        }
     }
 }
 
@@ -50,7 +54,13 @@ inline void infinite_blanks(Memory::External memory, Address blanks_addr)
     {
         Sleep(100);
         memory.write<int>(blanks_addr, 10, true);
-        check_window_focus();
+        if (check_window_focus())
+        {
+            if (GetAsyncKeyState(VK_ESCAPE))
+            {
+                exit(0);
+            }
+        }
     }
 }
 
