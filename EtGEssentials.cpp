@@ -46,7 +46,8 @@ int main()
         cout << " 1 - Infinite Health\n";
         cout << " 2 - Infinite Shells\n";
         cout << " 3 - Infinite Blanks\n";
-        cout << " 4 - Exit.\n";
+        cout << " 4 - Auto Blank Spam\n";
+        cout << " 5 - Exit.\n";
         cout << " Enter your choice and press return: ";
 
         cin >> choice;
@@ -64,6 +65,9 @@ int main()
             cout << "\nGiving Player infinite blanks! Press the ESCAPE key to exit EtGEssentials\n\n";
             infinite_blanks(memory, blanks_addr);
         case 4:
+            cout << "\nStarted auto blank spam cheat! Press the ESCAPE key to exit EtGEssentials\n\n";
+            auto_blank_spam(memory, blanks_addr);
+        case 5:
             cout << "\nExiting..";
             Sleep(2000);
             return 0;

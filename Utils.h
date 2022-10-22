@@ -32,6 +32,23 @@ inline bool check_window_focus()
     return false;
 }
 
+inline void press_q_key()
+{
+    INPUT ip;
+    ip.type = INPUT_KEYBOARD;
+    ip.ki.wScan = 0;
+    ip.ki.time = 0;
+    ip.ki.dwExtraInfo = 0;
+
+    ip.ki.wVk = 0x51; // virtual key code for Q
+    ip.ki.dwFlags = 0; // Key press flag
+    SendInput(1, &ip, sizeof(INPUT)); // Send Q key press input
+
+    ip.ki.wVk = 0x51; // virtual key code for Q
+    ip.ki.dwFlags = KEYEVENTF_KEYUP; // Release Q key flag
+    SendInput(1, &ip, sizeof(INPUT)); // Send Q key release input
+}
+
 inline void infinite_health(Memory::External memory, Address health_addr)
 {
     while (true)
@@ -68,6 +85,33 @@ inline void infinite_blanks(Memory::External memory, Address blanks_addr)
             }
         }
     }
+}
+
+inline void auto_blank_spam(Memory::External memory, Address blanks_addr)
+{
+    HWND etg_hwnd = FindWindowA(NULL, "Enter the Gungeon");
+
+	while (true)
+	{
+        if (check_window_focus())
+        {
+            if (GetAsyncKeyState(VK_ESCAPE))
+            {
+                exit(0);
+            }
+        }
+
+        Sleep(100);
+        if (etg_hwnd == GetForegroundWindow())
+        {
+            if (memory.read<int>(blanks_addr) != 10)
+            {
+                memory.write<int>(blanks_addr, 10, true);
+            }
+
+            press_q_key();
+        }
+	}
 }
 
 int WINAPI _tWinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPTSTR lpszCmdLine, int nCmdShow);
